@@ -14,7 +14,8 @@ app.get('/', (req, res) => {
 
 // Proxy endpoint — receives patient data, writes to Zapier Storage
 app.post('/set-patient', async (req, res) => {
-  const { patient_id, patient_name } = req.body;
+  const patient_name = req.body.patient_name || req.body.selected_patient_name;
+  const patient_id = req.body.patient_id || req.body.selected_patient_id || '';
 
   if (!patient_name) {
     return res.status(400).json({ error: 'patient_name is required' });
